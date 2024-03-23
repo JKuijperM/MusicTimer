@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="MusicTimer"
+run/main_scene="res://Scenes/TimerHUD.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -18,7 +19,8 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=480
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [editor_plugins]
@@ -27,4 +29,5 @@ enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
