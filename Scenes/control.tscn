@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcr2y4jsyr6d"]
+
+[ext_resource type="Script" path="res://Scripts/Control.gd" id="1_ux8es"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ux8es")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 86.0
+offset_bottom = 31.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

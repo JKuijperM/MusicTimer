@@ -1,0 +1,91 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsafhva6xh2nf"]
+
+[ext_resource type="Script" path="res://Scripts/TimerHUD.gd" id="1_k2tpr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gikwe"]
+font_size = 100
+
+[node name="TimerHUD" type="CanvasLayer"]
+script = ExtResource("1_k2tpr")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="RemainingTime" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -68.5
+offset_right = 240.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "x:x"
+label_settings = SubResource("LabelSettings_gikwe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -210.0
+offset_right = 50.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 6
+text = "PLAY"
+
+[node name="PauseButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -153.5
+offset_top = -210.0
+offset_right = -53.5
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pause
+"
+
+[node name="StopButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 52.98
+offset_top = -210.0
+offset_right = 152.98
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Stop
+"
+
+[node name="SpinBox" type="SpinBox" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -31.0
+offset_right = 41.0625
+grow_horizontal = 2
+grow_vertical = 0
+editable = false
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="StopButton" to="." method="_on_stop_button_pressed"]
