@@ -6,9 +6,16 @@ var minutes
 var timer_is_playing = false
 signal play_timer
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$RemainingTime.text = str(default_minutes) + ":" + str(default_seconds)
+	reset_remaining_time_label()
+	
+	$SpinBoxMinutes.get_line_edit().context_menu_enabled = false
+	$SpinBoxMinutes.value = default_minutes
+	$SpinBoxSeconds.get_line_edit().context_menu_enabled = false
+	$SpinBoxSeconds.value = default_seconds
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,6 +26,10 @@ func _process(delta):
 func reset_timer():
 	seconds = default_seconds
 	minutes = default_minutes
+
+func reset_remaining_time_label():
+	## Resets the value of the label
+	$RemainingTime.text = str(default_minutes) + ":" + str(default_seconds)
 
 
 func _on_play_button_pressed():
@@ -50,3 +61,25 @@ func _on_stop_button_pressed():
 	timer_is_playing = false
 	$Timer.paused = false
 	$Timer.stop()
+	reset_remaining_time_label()
+
+
+func _on_edit_button_pressed():
+	## Toggles the spinboxes (visible and editable) between true and false
+	$SpinBoxMinutes.visible = !$SpinBoxMinutes.visible
+	$SpinBoxMinutes.editable = !$SpinBoxMinutes.editable
+	$SpinBoxSeconds.visible = !$SpinBoxSeconds.visible
+	$SpinBoxSeconds.editable = !$SpinBoxSeconds.editable 
+	
+	$MinutesLabel.visible = !$MinutesLabel.visible
+	$SecondsLabel.visible = !$SecondsLabel.visible
+
+
+func _on_spin_box_minutes_value_changed(value):
+	default_minutes = $SpinBoxMinutes.value
+	reset_remaining_time_label()
+
+
+func _on_spin_box_seconds_value_changed(value):
+	default_seconds = $SpinBoxSeconds.value
+	reset_remaining_time_label()

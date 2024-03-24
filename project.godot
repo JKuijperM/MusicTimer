@@ -22,6 +22,7 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+window/main_scene="res://Scenes/TimerHUD.tscn"
 
 [editor_plugins]
 

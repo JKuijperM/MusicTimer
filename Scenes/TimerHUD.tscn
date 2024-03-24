@@ -72,20 +72,88 @@ grow_vertical = 0
 text = "Stop
 "
 
-[node name="SpinBox" type="SpinBox" parent="."]
+[node name="EditButton" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -31.0
-offset_right = 41.0625
+offset_left = 166.0
+offset_top = -199.0
+offset_right = 206.0
+offset_bottom = -168.0
 grow_horizontal = 2
 grow_vertical = 0
+size_flags_vertical = 6
+text = "Edit"
+
+[node name="MinutesLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -140.0
+offset_right = -37.0
+offset_bottom = -117.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Minutes"
+
+[node name="SecondsLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -140.0
+offset_right = 72.0
+offset_bottom = -117.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Seconds"
+
+[node name="SpinBoxMinutes" type="SpinBox" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 60.0
+alignment = 2
+editable = false
+
+[node name="SpinBoxSeconds" type="SpinBox" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -100.0
+offset_right = 110.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 59.0
+alignment = 2
 editable = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="EditButton" to="." method="_on_edit_button_pressed"]
+[connection signal="value_changed" from="SpinBoxMinutes" to="." method="_on_spin_box_minutes_value_changed"]
+[connection signal="value_changed" from="SpinBoxSeconds" to="." method="_on_spin_box_seconds_value_changed"]
