@@ -10,12 +10,20 @@
 		{
 			"uuid": "7014ecb9-b7e4-4734-abd1-0897d32d6bc0",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"af244140-54fd-449d-8c61-cee1553e4472",
+				"5d16bca7-71a2-43d7-aed4-bd44d60fe92f",
+				"657dfd99-4941-4a24-929a-6851e0eb4c08",
+				"0663574c-8684-4292-beb0-ef0d2308737b",
+				"2488caa4-5541-4d1e-b7a3-7370ed115c2b"
+			]
 		},
 		{
 			"uuid": "386be904-378d-42e9-91c2-6cd2254eb98e",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"eaa630e0-abc0-493e-9372-62641d94b3dc"
+			]
 		},
 		{
 			"uuid": "80a2bc87-1518-4944-aeff-68be5c9fc264",
@@ -23,7 +31,50 @@
 			"tasks": []
 		}
 	],
-	"tasks": [],
+	"tasks": [
+		{
+			"uuid": "af244140-54fd-449d-8c61-cee1553e4472",
+			"title": "Think about the logic of the buttons",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		},
+		{
+			"uuid": "eaa630e0-abc0-493e-9372-62641d94b3dc",
+			"title": "Work in the progress bar",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		},
+		{
+			"uuid": "5d16bca7-71a2-43d7-aed4-bd44d60fe92f",
+			"title": "Dialog to open files",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		},
+		{
+			"uuid": "657dfd99-4941-4a24-929a-6851e0eb4c08",
+			"title": "In mobile, resize the window to see the corresponding fields",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		},
+		{
+			"uuid": "0663574c-8684-4292-beb0-ef0d2308737b",
+			"title": "New task",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		},
+		{
+			"uuid": "2488caa4-5541-4d1e-b7a3-7370ed115c2b",
+			"title": "Theme UI using Kenny's assets",
+			"description": "",
+			"category": "a76a310c-9417-4a0b-b02a-64864c7dc07a",
+			"steps": []
+		}
+	],
 	"layout": {
 		"columns": [
 			[
