@@ -1,17 +1,27 @@
 extends CanvasLayer
+
 @export var default_seconds = 30
 @export var default_minutes = 1
+
+@onready var background_music = $BackgroundMusic
+
 var seconds
 var minutes
 var max_seconds
 var current_seconds
 var timer_is_playing = false
-signal play_timer
-
 var edit_menu_visible = false
+
+signal play_timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Get the length of the music
+	if background_music.stream:
+		var stream_length = background_music.stream.get_length()
+		default_minutes = int(stream_length / 60)
+		default_seconds = int(fmod(stream_length, 60))
+	
 	reset_remaining_time_label()
 	
 	$SpinBoxMinutes.get_line_edit().context_menu_enabled = false
@@ -28,8 +38,6 @@ func _ready():
 	current_seconds = max_seconds
 	#$CircularProgressBar.set_max_value(current_seconds)
 	$CircularProgressBar.set_value(calculate_equivalent_progress(current_seconds))
-	
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,19 +65,22 @@ func stop_timer():
 	$Timer.paused = false
 	$Timer.stop()
 	$CircularProgressBar.set_value(calculate_equivalent_progress(max_seconds))
+	background_music.stop()
 	
 func calculate_equivalent_progress(value):
 	return (value * 100) / max_seconds
 
-func _on_play_button_pressed():
-	
+func _on_play_button_pressed():	
 	if $Timer.is_paused():
 		$Timer.paused = false
+		background_music.stream_paused = false
+		timer_is_playing = true
 	else:
 		if !timer_is_playing:
 			timer_is_playing = true
 			reset_timer()
 			$Timer.start()
+			background_music.play()
 
 func _on_timer_timeout():	
 	if seconds == 0:
@@ -78,6 +89,7 @@ func _on_timer_timeout():
 			seconds == 60
 		else:
 			$Timer.stop()
+			background_music.stop()
 	elif seconds > 0:
 		seconds -= 1
 	current_seconds -= 1
@@ -91,6 +103,7 @@ func _on_timer_timeout():
 func _on_pause_button_pressed():
 	timer_is_playing = false
 	$Timer.paused = true
+	background_music.stream_paused = true
 
 
 func _on_stop_button_pressed():
@@ -110,7 +123,7 @@ func _on_edit_button_pressed():
 	
 	# Check if the edit menu is not visible and stops the timer in this case
 	if !edit_menu_visible:
-		stop_timer()
+		stop_timer()		
 	
 	# Toggle the value of 'edit_menu_visible'
 	edit_menu_visible = !edit_menu_visible
@@ -124,3 +137,8 @@ func _on_spin_box_minutes_value_changed(value):
 func _on_spin_box_seconds_value_changed(value):
 	default_seconds = $SpinBoxSeconds.value
 	reset_remaining_time_label()
+
+
+func _on_volume_slider_drag_ended(value_changed):
+	background_music.volume_db = $VolumeSlider.value
+	print($VolumeSlider.value)

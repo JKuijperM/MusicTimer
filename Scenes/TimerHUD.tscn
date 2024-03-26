@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsafhva6xh2nf"]
+[gd_scene load_steps=5 format=3 uid="uid://bsafhva6xh2nf"]
 
 [ext_resource type="Script" path="res://Scripts/TimerHUD.gd" id="1_k2tpr"]
 [ext_resource type="PackedScene" uid="uid://cxho0ur4g4r2c" path="res://Scenes/circular_progress_bar.tscn" id="2_ptdoy"]
+[ext_resource type="AudioStream" uid="uid://cfn6m777tj8sy" path="res://Assets/Bob_lennon_-_Gutalala_sudalala.mp3" id="3_nfvhu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gikwe"]
 font_size = 100
@@ -173,7 +174,17 @@ offset_right = 152.0
 offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 50.0
+min_value = -24.0
+max_value = 0.0
+value = -12.0
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nfvhu")
+volume_db = -28.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
@@ -182,3 +193,4 @@ value = 50.0
 [connection signal="pressed" from="EditButton" to="." method="_on_edit_button_pressed"]
 [connection signal="value_changed" from="SpinBoxMinutes" to="." method="_on_spin_box_minutes_value_changed"]
 [connection signal="value_changed" from="SpinBoxSeconds" to="." method="_on_spin_box_seconds_value_changed"]
+[connection signal="drag_ended" from="VolumeSlider" to="." method="_on_volume_slider_drag_ended"]
