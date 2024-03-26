@@ -1,25 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxho0ur4g4r2c"]
+[gd_scene load_steps=8 format=3 uid="uid://cxho0ur4g4r2c"]
 
-[ext_resource type="Texture2D" uid="uid://c2bey6otu2m8m" path="res://Assets/flair_circle_red_0.png" id="1_uwsh4"]
 [ext_resource type="Script" path="res://Scripts/circular_progress_bar.gd" id="2_c3xrc"]
-[ext_resource type="Texture2D" uid="uid://rxgucw2h8hhv" path="res://Assets/flair_circle_border.png" id="3_o171a"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/circular_progress_bar.gdshader" id="4_8eawh"]
+
+[sub_resource type="Gradient" id="Gradient_0ph84"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 0.521569)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fwgo2"]
+gradient = SubResource("Gradient_0ph84")
+
+[sub_resource type="Gradient" id="Gradient_0ugux"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0.921569, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kdn2m"]
+gradient = SubResource("Gradient_0ugux")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ht6os"]
+shader = ExtResource("4_8eawh")
+shader_parameter/value = 25.0
+shader_parameter/thickness = 15.0
+shader_parameter/offset = null
+shader_parameter/smoothing = 5.0
+shader_parameter/fg = SubResource("GradientTexture1D_kdn2m")
+shader_parameter/bg = SubResource("GradientTexture1D_fwgo2")
 
 [node name="CircularProgressBar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
 script = ExtResource("2_c3xrc")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-value = 33.0
-fill_mode = 4
-texture_under = ExtResource("1_uwsh4")
-texture_over = ExtResource("3_o171a")
-texture_progress = ExtResource("1_uwsh4")
-tint_under = Color(0, 0, 0, 0.278431)
-tint_progress = Color(0, 0, 0.964706, 1)
+[node name="Panel" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_ht6os")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -155.0
+offset_right = 155.0
+offset_bottom = 155.0

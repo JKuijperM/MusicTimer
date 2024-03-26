@@ -3,7 +3,8 @@ extends CanvasLayer
 @export var default_minutes = 1
 var seconds
 var minutes
-var total_seconds
+var max_seconds
+var current_seconds
 var timer_is_playing = false
 signal play_timer
 
@@ -17,10 +18,17 @@ func _ready():
 	$SpinBoxMinutes.value = default_minutes
 	$SpinBoxSeconds.get_line_edit().context_menu_enabled = false
 	$SpinBoxSeconds.value = default_seconds
+	$SpinBoxMinutes.visible = false
+	$SpinBoxSeconds.visible = false
+	$MinutesLabel.visible = false
+	$SecondsLabel.visible = false
+
 	# Calculate the total seconds
-	total_seconds = default_minutes * 60 + default_seconds
-	$CircularProgressBar.set_max_value(total_seconds)
-	$CircularProgressBar.set_value(total_seconds)
+	max_seconds = default_minutes * 60 + default_seconds
+	current_seconds = max_seconds
+	#$CircularProgressBar.set_max_value(current_seconds)
+	$CircularProgressBar.set_value(calculate_equivalent_progress(current_seconds))
+	
 	
 
 
@@ -33,11 +41,14 @@ func reset_timer():
 	seconds = default_seconds
 	minutes = default_minutes
 	# Calculate the total seconds
-	total_seconds = default_minutes * 60 + default_seconds
+	max_seconds = default_minutes * 60 + default_seconds
+	current_seconds = max_seconds
 
 func reset_remaining_time_label():
 	## Resets the value of the label
-	$RemainingTime.text = str(default_minutes) + ":" + str(default_seconds)
+	var minutes_str = str(default_minutes) if default_minutes >= 10 else "0" + str(default_minutes)
+	var seconds_str = str(default_seconds) if default_seconds >= 10 else "0" + str(default_seconds)
+	$RemainingTime.text = minutes_str + ":" + seconds_str
 
 func stop_timer():
 	## Stops the timer, sets as 'false' the timer_is_playing flag and also
@@ -45,6 +56,10 @@ func stop_timer():
 	timer_is_playing = false
 	$Timer.paused = false
 	$Timer.stop()
+	$CircularProgressBar.set_value(calculate_equivalent_progress(max_seconds))
+	
+func calculate_equivalent_progress(value):
+	return (value * 100) / max_seconds
 
 func _on_play_button_pressed():
 	
@@ -61,10 +76,16 @@ func _on_timer_timeout():
 		if minutes > 0:
 			minutes -= 1
 			seconds == 60
-	seconds -= 1
-	total_seconds -= 1
-	$RemainingTime.text = str(minutes) + ":" + str(seconds)
-	$CircularProgressBar.set_value(total_seconds)
+		else:
+			$Timer.stop()
+	elif seconds > 0:
+		seconds -= 1
+	current_seconds -= 1
+	
+	var minutes_str = str(minutes) if minutes >= 10 else "0" + str(minutes)
+	var seconds_str = str(seconds) if seconds >= 10 else "0" + str(seconds)
+	$RemainingTime.text = minutes_str + ":" + seconds_str
+	$CircularProgressBar.set_value(calculate_equivalent_progress(current_seconds))
 
 
 func _on_pause_button_pressed():

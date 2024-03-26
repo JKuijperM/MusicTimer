@@ -5,16 +5,10 @@ extends Control
 func _ready():
 	pass
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func set_value(value):
-	$TextureProgressBar.value = value	
-		
-func set_min_value(value):
-	$TextureProgressBar.min_value = value
+	$Panel.material.set_shader_parameter("value", value)
 	
-func set_max_value(value):
-	$TextureProgressBar.max_value = value
