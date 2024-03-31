@@ -12,3 +12,5 @@ func _process(delta):
 func set_value(value):
 	$Panel.material.set_shader_parameter("value", value)
 	
+func set_remining_time(txt):
+	$RemainingTime.text = txt 

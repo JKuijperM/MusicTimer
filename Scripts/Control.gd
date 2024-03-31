@@ -2,8 +2,8 @@ extends Control
 
 var seconds
 var minutes
-var default_seconds = 30
-var default_minutes = 1
+var default_seconds = 10
+var default_minutes = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	reset_timer()

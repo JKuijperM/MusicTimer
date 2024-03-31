@@ -1,196 +1,201 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsafhva6xh2nf"]
+[gd_scene load_steps=9 format=3 uid="uid://bsafhva6xh2nf"]
 
 [ext_resource type="Script" path="res://Scripts/TimerHUD.gd" id="1_k2tpr"]
+[ext_resource type="Texture2D" uid="uid://r110qxfj048e" path="res://Assets/grey_panel_480x720.png" id="2_02r40"]
 [ext_resource type="PackedScene" uid="uid://cxho0ur4g4r2c" path="res://Scenes/circular_progress_bar.tscn" id="2_ptdoy"]
-[ext_resource type="AudioStream" uid="uid://cfn6m777tj8sy" path="res://Assets/Bob_lennon_-_Gutalala_sudalala.mp3" id="3_nfvhu"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_gikwe"]
-font_size = 100
+[ext_resource type="AudioStream" uid="uid://ce4iak7i31m6t" path="res://Assets/Sounds/MyVeryOwnDeadShip.ogg" id="3_ammvr"]
+[ext_resource type="AudioStream" uid="uid://bdnqyf6n8f83g" path="res://Assets/Sounds/alert_klaxxon.wav" id="4_ltch4"]
+[ext_resource type="Texture2D" uid="uid://c245n812q2pet" path="res://Assets/musicOn.png" id="5_sqe4u"]
+[ext_resource type="Texture2D" uid="uid://cun5e60lsax4b" path="res://Assets/audioOn.png" id="6_6gv2t"]
+[ext_resource type="PackedScene" uid="uid://cnytyqfx2oecx" path="res://Scenes/settings_menu.tscn" id="8_05rx5"]
 
 [node name="TimerHUD" type="CanvasLayer"]
 script = ExtResource("1_k2tpr")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 492.0
+offset_bottom = 732.0
+texture = ExtResource("2_02r40")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 468.0
+offset_bottom = 708.0
+color = Color(0.372549, 0.764706, 0.568627, 1)
+
 [node name="Timer" type="Timer" parent="."]
 
-[node name="RemainingTime" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -183.0
-offset_right = 240.0
-offset_bottom = -46.0
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ammvr")
+volume_db = -28.0
+
+[node name="AlertSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ltch4")
+volume_db = -28.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "xx:xx"
-label_settings = SubResource("LabelSettings_gikwe")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="PlayButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -208.0
-offset_right = 50.0
-offset_bottom = -158.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 6
-text = "PLAY"
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 
-[node name="PauseButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -153.5
-offset_top = -208.0
-offset_right = -53.5
-offset_bottom = -158.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Pause
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Settings
 "
 
-[node name="StopButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 52.98
-offset_top = -208.0
-offset_right = 152.98
-offset_bottom = -158.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Stop
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Close
 "
 
-[node name="EditButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 166.0
-offset_top = -197.0
-offset_right = 206.0
-offset_bottom = -166.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 6
-text = "Edit"
+[node name="CircularProgressBar" parent="MarginContainer/VBoxContainer2" instance=ExtResource("2_ptdoy")]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="MinutesLabel" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -88.5
-offset_top = -138.0
-offset_right = -25.5
-offset_bottom = -115.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Minutes"
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
 
-[node name="SecondsLabel" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -138.0
-offset_right = 84.0
-offset_bottom = -115.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Seconds"
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="SpinBoxMinutes" type="SpinBox" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -98.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 0
-max_value = 60.0
-alignment = 2
-editable = false
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("5_sqe4u")
 
-[node name="SpinBoxSeconds" type="SpinBox" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -98.0
-offset_right = 110.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 0
-max_value = 59.0
-alignment = 2
-editable = false
-
-[node name="CircularProgressBar" parent="." instance=ExtResource("2_ptdoy")]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1.52588e-05
-offset_top = -104.0
-offset_right = 1.52588e-05
-offset_bottom = -104.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
-
-[node name="VolumeSlider" type="HSlider" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 90.0
-offset_right = 152.0
-offset_bottom = 110.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VolumeMusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
 min_value = -24.0
 max_value = 0.0
 value = -12.0
 
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_nfvhu")
-volume_db = -28.0
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("6_6gv2t")
+
+[node name="VolumeSoundSlider" type="HSlider" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer4"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+min_value = -24.0
+max_value = 0.0
+value = -12.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PauseButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+text = "Pause
+"
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+size_flags_vertical = 6
+text = "PLAY"
+
+[node name="StopButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+text = "Stop
+"
+
+[node name="EditButton" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Edit"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MinutesLabel" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Minutes"
+horizontal_alignment = 1
+
+[node name="SpinBoxMinutes" type="SpinBox" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+max_value = 60.0
+alignment = 2
+editable = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SecondsLabel" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+text = "Seconds"
+horizontal_alignment = 1
+
+[node name="SpinBoxSeconds" type="SpinBox" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+max_value = 59.0
+alignment = 2
+editable = false
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="UntilEndSecondsLabel" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+text = "Seconds until the end"
+
+[node name="UntilEndSecondsCB" type="CheckBox" parent="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+
+[node name="SettingsMenu" parent="." instance=ExtResource("8_05rx5")]
+visible = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
-[connection signal="pressed" from="StopButton" to="." method="_on_stop_button_pressed"]
-[connection signal="pressed" from="EditButton" to="." method="_on_edit_button_pressed"]
-[connection signal="value_changed" from="SpinBoxMinutes" to="." method="_on_spin_box_minutes_value_changed"]
-[connection signal="value_changed" from="SpinBoxSeconds" to="." method="_on_spin_box_seconds_value_changed"]
-[connection signal="drag_ended" from="VolumeSlider" to="." method="_on_volume_slider_drag_ended"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="drag_ended" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer2/VolumeMusicSlider" to="." method="_on_volume_music_slider_drag_ended"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer2/VolumeMusicSlider" to="." method="_on_volume_music_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer4/VolumeSoundSlider" to="." method="_on_volume_sound_slider_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer/StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer/EditButton" to="." method="_on_edit_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer/SpinBoxMinutes" to="." method="_on_spin_box_minutes_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer2/VBoxContainer2/HBoxContainer3/VBoxContainer2/SpinBoxSeconds" to="." method="_on_spin_box_seconds_value_changed"]
+[connection signal="back_settings_menu" from="SettingsMenu" to="." method="_on_settings_menu_back_settings_menu"]
+[connection signal="selected_music_file" from="SettingsMenu" to="." method="_on_settings_menu_selected_music_file"]
